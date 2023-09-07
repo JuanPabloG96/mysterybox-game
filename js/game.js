@@ -32,10 +32,10 @@ export function renderBoard(board, game, square) {
   game.innerHTML += square('', index)
 }
 
-export async function updateBoard(counter) {
+export async function updateBoard(counter, board, finalState, game, square) {
   while (!checkEnd(board, finalState)) {
     randomNumbers(board);
-    renderBoard(board);
+    renderBoard(board, game, square);
     await new Promise(resolve => setTimeout(resolve, 300));
     counter++;
   }
