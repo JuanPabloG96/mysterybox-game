@@ -8,8 +8,12 @@ const boxes = document.querySelectorAll('.box');
 const startBtn = document.querySelector('.start-btn');
 const restartBtn = document.querySelector('.restart-btn');
 const results = document.querySelector('.text-content');
+const historyBtn = document.querySelector('.history-btn');
+const clearBtn = document.querySelector('.clear-btn');
 
 let counter = 0;
+
+let data = []
 
 function initializeState() {
   let modalCounter = 1
@@ -48,7 +52,10 @@ modalBtn.addEventListener('click', () => {
 
 startBtn.addEventListener('click', () => {
   updateBoard(counter, board, finalState, game, square).then(result => {
-    results.innerHTML = info(initialState, result)
+    results.innerHTML = info(initialState, result);
+    const initialStateCopy = JSON.parse(JSON.stringify(initialState)); // Copia de initialState
+    data.push({ "initialState": initialStateCopy, "repetitions": result });
+    localStorage.setItem('data', JSON.stringify(data));
   })
 })
 
@@ -65,3 +72,26 @@ restartBtn.addEventListener('click', () => {
   })
   modal.classList.toggle('hidden');
 })
+
+historyBtn.addEventListener('click', () => {
+  let historyContent = '';
+  data.forEach(dataItem => {
+    historyContent += info(dataItem?.initialState, dataItem?.repetitions);
+  });
+  results.innerHTML = historyContent;
+});
+
+clearBtn.addEventListener('click', () => {
+  localStorage.clear();
+  results.innerHTML = '';
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const storedData = localStorage.getItem('data');
+  if (storedData) {
+    data = JSON.parse(storedData);
+    console.log('Recover data:', data);
+  } else {
+    console.log('No data found in cache');
+  }
+});
