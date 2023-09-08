@@ -1,52 +1,67 @@
 import { renderBoard, updateBoard } from "./js/game.js";
-import { board, finalState, square } from "./js/const.js";
+import { board, initialState, finalState, info, square } from "./js/const.js";
 
 const game = document.querySelector('.game');
 const modal = document.querySelector('.modal')
 const modalBtn = document.getElementById('modal-btn');
 const boxes = document.querySelectorAll('.box');
 const startBtn = document.querySelector('.start-btn');
+const restartBtn = document.querySelector('.restart-btn');
+const results = document.querySelector('.text-content');
 
 let counter = 0;
-function initializeState() {
-  let moduleCounter = 1
 
+function initializeState() {
+  let modalCounter = 1
   boxes.forEach(box => {
     box.addEventListener('click', () => {
+      if (modalCounter > 4) modalCounter = 1;
       if (box.textContent == '') {
-        box.textContent = moduleCounter;
-        moduleCounter++
+        box.textContent = modalCounter;
+        modalCounter++
+        console.log(modalCounter)
       }
     })
   })
 }
 function checkValid(boxes) {
-  boxes.forEach(box => {
-    if (box.textContent == '') return false
-  })
-  return true
+  const boxArray = Array.from(boxes);
+  return boxArray.some(box => box.textContent === '');
 }
+
+
 renderBoard(board, game, square)
 initializeState();
 
 modalBtn.addEventListener('click', () => {
-  if (checkValid(boxes)) {
+  if (!checkValid(boxes)) {
     boxes.forEach((box, index) => {
       const row = Math.floor(index / 2);
       const column = index % 2;
       board[row][column] = box.textContent;
+      initialState[row][column] = box.textContent;
     })
+    modal.classList.add('hidden')
+    renderBoard(board, game, square)
   }
-  modal.classList.add('hidden')
-  renderBoard(board, game, square)
 })
 
 startBtn.addEventListener('click', () => {
   updateBoard(counter, board, finalState, game, square).then(result => {
-
+    results.innerHTML = info(initialState, result)
   })
 })
 
-/* updateBoard().then(result => {
-  console.log("Numero de repeticiones: ", result)
-}); */
+restartBtn.addEventListener('click', () => {
+  counter = 0;
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      board[i][j] = '';
+      initialState[i][j] = '';
+    }
+  }
+  boxes.forEach(box => {
+    box.textContent = '';
+  })
+  modal.classList.toggle('hidden');
+})
