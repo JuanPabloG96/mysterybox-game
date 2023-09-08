@@ -37,9 +37,36 @@ body {
 
 .main {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   justify-content: center;
   align-items: center;
+}
+
+.results {
+  width: 200px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 10px;
+  line-height: 2;
+}
+
+.text-content {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-container {
+  width: 100%;
+  background-color: var(--dark-transparent-black);
+  padding: 10px;
+}
+
+.history-btn {
+  margin-top: auto;
 }
 
 .modal {
@@ -79,7 +106,7 @@ body {
 }
 
 .grid-container {
-  width: min(200px, 90%);
+  width: min(180px, 90%);
   aspect-ratio: 1/1;
   margin: 20px auto;
 
