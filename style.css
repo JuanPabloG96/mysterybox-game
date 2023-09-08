@@ -43,10 +43,12 @@ body {
 }
 
 .results {
-  width: 200px;
+  width: 250px;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   font-size: 10px;
   line-height: 2;
@@ -57,12 +59,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 0 10px;
+  overflow-y: auto;
+  direction: rtl;
 }
 
 .info-container {
   width: 100%;
-  background-color: var(--dark-transparent-black);
   padding: 10px;
+  text-align: left;
+  background-color: var(--dark-transparent-black);
 }
 
 .history-btn {
@@ -124,10 +130,20 @@ body {
   color: var(--black);
 }
 
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
 .btn {
+  width: 100%;
   padding: 20px;
   font-family: "Press Start 2P", sans-serif;
   box-shadow: -4px 4px 3px var(--black);
+  font-size: 12px;
 }
 
 .btn:active {
@@ -175,6 +191,20 @@ body {
 
 .square-5 {
   background-color: var(--gray);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--transparent-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+  border-radius: 6px;
 }
 
 @keyframes fade-in {
