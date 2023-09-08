@@ -36,7 +36,7 @@ export async function updateBoard(counter, board, finalState, game, square) {
   while (!checkEnd(board, finalState)) {
     randomNumbers(board);
     renderBoard(board, game, square);
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise(resolve => setTimeout(resolve, 200));
     counter++;
   }
   return counter
