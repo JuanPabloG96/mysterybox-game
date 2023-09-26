@@ -23,7 +23,6 @@ function initializeState() {
       if (box.textContent == '') {
         box.textContent = modalCounter;
         modalCounter++
-        console.log(modalCounter)
       }
     })
   })
